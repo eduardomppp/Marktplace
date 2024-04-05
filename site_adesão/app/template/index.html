@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu Título</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            padding: 10px;
+            background-color: #176EB6;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .header img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group select {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .form-group input[type="text"]:invalid,
+        .form-group select:invalid {
+            border-color: #dc3545;
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-group input[type="submit"],
+        .button-group a {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .button-group input[type="submit"] {
+            background-color: #176EB6;
+        }
+
+        .button-group input[type="submit"]:hover {
+            background-color: #176EB6;
+        }
+
+        .button-group a {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .button-group a:hover {
+            background-color: #e0a800;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://raichu-uploads.s3.amazonaws.com/companypageconfiguration_f9e5c67d-e08f-49c1-ab56-e56d2b40dcb6.jpg" alt="Descrição da imagem">
+        </div>
+        <form action="/submit" method="post">
+            {% if user %}
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+            {% endif %}
+            <div class="form-group">
+                <label for="agentName">Nome do Agente:</label>
+                <select id="agentName" name="agentName" required>
+                    <option value=""></option>
+                    <option value="Eduardo M. Prado">Eduardo</option>
+                    <option value="Maria C. Souza">Teste</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="nomeFantasia">Nome fantasia:</label>
+                <input type="text" id="nomeFantasia" name="nomeFantasia" placeholder="Digite o nome fantasia" required>
+            </div>
+            <div class="form-group">
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" id="cnpj" name="cnpj" placeholder="Digite o CNPJ" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Telefone:</label>
+                <input type="text" id="phone" name="phone" placeholder="Digite o telefone" required>
+            </div>
+            <div class="form-group">
+                <label for="protocol">Protocolo:</label>
+                <input type="text" id="protocol" name="protocol" placeholder="Digite o protocolo">
+            </div>
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value=""></option>
+                    <option value="credenciado">Credenciado</option>
+                    <option value="semInteresse">Sem interesse</option>
+                    <option value="retorno">Retorno</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="returnTime">Data e hora retorno:</label>
+                <input type="text" id="returnTime" name="returnTime" placeholder="DD/MM/AAAA HH:MM" required>
+            </div>            
+            <div class="button-group">
+                <input type="submit" value="Salvar">
+                <input type="submit" formaction="/edit" value="Editar">
+            </div>
+        </form>
+        <div class="button-group">
+            <a href="/users">Listar usuários</a>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#cnpj').mask('00.000.000/0000-00');
+            $('#phone').mask('(00) 0000-0000');
+            $('#returnTime').mask('00/00/0000 00:00');
+        });
+    </script>
+</body>
+</html>
